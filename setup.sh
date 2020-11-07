@@ -33,3 +33,30 @@ else
   echo "Docker-compose is already installed."
 fi
 
+if [ ! -d "$HOME/registry-lab" ]
+then
+  setup-registry-lab/clone-registry-lab.sh
+  setup-registry-lab/start-registry.sh
+fi
+
+if [ ! -d "$HOME/kubernetes-lab" ]
+then
+
+  is_virtualbox_installed=$(virtualbox --help | head -n 1 | awk '{print $NF}')
+
+  if [ -z "$is_virtualbox_installed" ]
+  then
+    setup-kubernetes-lab/install-virtualbox.sh
+  fi
+
+  is_vagrant_installed=$(vagrant --version)
+
+  if [ -z "$is_vagrant_installed" ]
+  then
+    setup-kubernetes-lab/install-vagrant.sh
+  fi
+
+  setup-kubernetes-lab/clone-kubernetes-lab.sh
+  setup-kubernetes-lab/setup-kubernetes-lab-environment.sh
+
+fi
