@@ -1,2 +1,1 @@
-cd $HOME/registry-lab/Registry || exit 1
--u "$(logname)" docker-compose up -d
+-u "$(logname)" docker-compose up -f "$1"/registry-lab/Registry/docker-compose.yml -d

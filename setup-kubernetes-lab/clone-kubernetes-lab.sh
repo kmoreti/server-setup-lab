@@ -1,1 +1,1 @@
-git clone https://github.com/kmoreti/kubernetes-lab.git $HOME/kubernetes-lab
+git clone https://github.com/kmoreti/kubernetes-lab.git "$1"/kubernetes-lab

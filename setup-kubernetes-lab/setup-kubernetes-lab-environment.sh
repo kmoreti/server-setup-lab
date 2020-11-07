@@ -1,2 +1,1 @@
-cd $HOME/kubernetes-lab/Vagrant || exit 1
-vagrant up
+vagrant up -f "$1"/kubernetes-lab/Vagrant/Vagranfile
