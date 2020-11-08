@@ -1,2 +1,2 @@
-apt-get install -y kubectl
+snap install kubectl --classic
 kubectl version --client
