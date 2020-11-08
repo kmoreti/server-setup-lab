@@ -3,6 +3,8 @@
 apt-get update
 apt-get upgrade -y
 
+setup-ssh-key/generate-ssh-key.sh
+
 is_curl_installed=$(curl -V)
 
 if [ -z "$is_curl_installed" ]
@@ -31,6 +33,16 @@ then
   echo "Docker-compose is installed successfully."
 else
   echo "Docker-compose is already installed."
+fi
+
+is_kubectl_installed=$(kubectl version --client)
+
+if [ -z "$is_kubectl_installed" ]
+then
+  setup-kubernetes-lab/install-kubectl.sh
+  echo "Kubectl is installed successfully."
+else
+  echo "Kubectl is already installed."
 fi
 
 home_directory=$(getent passwd "$(logname)" | cut -d: -f6)
