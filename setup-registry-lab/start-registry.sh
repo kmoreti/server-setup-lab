@@ -1,1 +1,1 @@
-sudo -u "$(logname)" docker-compose up -f "$1"/registry-lab/Registry/docker-compose.yml -d
+sudo -u "$(logname)" docker-compose -f "$1"/registry-lab/Registry/docker-compose.yml up -d

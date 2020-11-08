@@ -44,14 +44,14 @@ fi
 if [ ! -d "$home_directory/kubernetes-lab" ]
 then
 
-  is_virtualbox_installed=$(virtualbox --help | head -n 1 | awk '{print $NF}')
+  is_virtualbox_installed=$(virtualbox --help | head -n 1 | awk '{print $NF}' 2>/dev/null)
 
   if [ -z "$is_virtualbox_installed" ]
   then
     setup-kubernetes-lab/install-virtualbox.sh
   fi
 
-  is_vagrant_installed=$(vagrant --version)
+  is_vagrant_installed=$(vagrant --version 2>/dev/null)
 
   if [ -z "$is_vagrant_installed" ]
   then
