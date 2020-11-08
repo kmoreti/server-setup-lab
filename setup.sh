@@ -59,6 +59,6 @@ then
   fi
 
   setup-kubernetes-lab/clone-kubernetes-lab.sh "$home_directory"
-  setup-kubernetes-lab/setup-kubernetes-lab-environment.sh
+  setup-kubernetes-lab/setup-kubernetes-lab-environment.sh "$home_directory"
 
 fi
