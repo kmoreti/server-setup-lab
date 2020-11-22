@@ -1,8 +1,9 @@
-mkdir ca-and-tls/certificates
-mkdir ca-and-tls/config
+CERT_DIR="ca-and-tls/certificates"
+SSL_CONF_DIR="ca-and-tls/config"
 
-CERT_DIR=$(getent passwd "$(logname)" | cut -d: -f6)/server-setup-lab/ca-and-tls/certificates
-SSL_CONF_DIR=$(getent passwd "$(logname)" | cut -d: -f6)/server-setup-lab/ca-and-tls/config
+mkdir "$CERT_DIR"
+mkdir "$SSL_CONF_DIR"
+
 
 #####################################################################################
 # Certificate Authority

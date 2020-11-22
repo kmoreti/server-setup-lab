@@ -1,5 +1,7 @@
 #!/bin/bash
 
+HOME_DIRECTORY=$(getent passwd "$(logname)" | cut -d: -f6)
+
 apt-get update
 apt-get upgrade -y
 
@@ -45,8 +47,6 @@ else
   echo "Kubectl is already installed."
 fi
 
-home_directory=$(getent passwd "$(logname)" | cut -d: -f6)
-
 if [ ! -d "ca-and-tls/certificates/" ]
 then
   echo "Creating certificates."
@@ -55,13 +55,13 @@ else
   echo "Certificates already created."
 fi
 
-if [ ! -d "$home_directory/registry-lab" ]
+if [ ! -d "$HOME_DIRECTORY/registry-lab" ]
 then
-  setup-registry-lab/clone-registry-lab.sh "$home_directory"
-  setup-registry-lab/start-registry.sh "$home_directory"
+  setup-registry-lab/clone-registry-lab.sh "$HOME_DIRECTORY"
+  setup-registry-lab/start-registry.sh "$HOME_DIRECTORY"
 fi
 
-if [ ! -d "$home_directory/kubernetes-lab" ]
+if [ ! -d "$HOME_DIRECTORY/kubernetes-lab" ]
 then
 
   is_virtualbox_installed=$(virtualbox --help | head -n 1 | awk '{print $NF}' 2>/dev/null)
@@ -78,7 +78,7 @@ then
     setup-kubernetes-lab/install-vagrant.sh
   fi
 
-  setup-kubernetes-lab/clone-kubernetes-lab.sh "$home_directory"
-  setup-kubernetes-lab/setup-kubernetes-lab-environment.sh "$home_directory"
+  setup-kubernetes-lab/clone-kubernetes-lab.sh "$HOME_DIRECTORY"
+  setup-kubernetes-lab/setup-kubernetes-lab-environment.sh "$HOME_DIRECTORY"
 
 fi
