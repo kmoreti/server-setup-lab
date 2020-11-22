@@ -70,14 +70,14 @@ then
     setup-kubernetes-lab/install-vagrant.sh
   fi
 
-  if [ ! -d "$home_directory/kubernetes-lab" ]
-  then
-    setup-kubernetes-lab/clone-kubernetes-lab.sh "$home_directory"
-    setup-kubernetes-lab/setup-kubernetes-lab-environment.sh "$home_directory"
-  fi
+  setup-kubernetes-lab/clone-kubernetes-lab.sh "$home_directory"
+  setup-kubernetes-lab/setup-kubernetes-lab-environment.sh "$home_directory"
 
-  if [ ! -d "$home_directory/setup-kubernetes-lab/ca-and-tls/certificates/" ]
-  then
-    setup-kubernetes-lab/ca-and-tls/create-certificates.sh
-  fi
+fi
+
+if [ ! -d "$home_directory/setup-kubernetes-lab/ca-and-tls/certificates/" ]
+then
+  setup-kubernetes-lab/ca-and-tls/create-certificates.sh
+else
+  echo "Certificates already created."
 fi
