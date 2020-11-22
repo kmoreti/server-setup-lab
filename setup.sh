@@ -77,6 +77,8 @@ fi
 
 if [ ! -d "$home_directory/setup-kubernetes-lab/ca-and-tls/certificates/" ]
 then
+  echo "Creating certificates."
+  ls "$home_directory/setup-kubernetes-lab/ca-and-tls/"
   setup-kubernetes-lab/ca-and-tls/create-certificates.sh
 else
   echo "Certificates already created."
