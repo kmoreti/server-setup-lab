@@ -15,7 +15,7 @@ sudo -u "$(logname)" openssl genrsa -out "$CERT_DIR"/ca.key 2048
 sudo sed -i '0,/RANDFILE/{s/RANDFILE/\#&/}' /etc/ssl/openssl.cnf
 
 # Create CSR using the private key
-sudo -u "$(logname)" openssl req -new -key ca.key -subj "/CN=KUBERNETES-CA" -out "$CERT_DIR"/ca.csr
+sudo -u "$(logname)" openssl req -new -key "$CERT_DIR"/ca.key -subj "/CN=KUBERNETES-CA" -out "$CERT_DIR"/ca.csr
 
 # Self sign the csr using its own private key
 sudo -u "$(logname)" openssl x509 -req -in "$CERT_DIR"/ca.csr -signkey ca.key -CAcreateserial -out "$CERT_DIR"/ca.crt -days 1000
@@ -27,7 +27,7 @@ sudo -u "$(logname)" openssl x509 -req -in "$CERT_DIR"/ca.csr -signkey ca.key -C
 sudo -u "$(logname)" openssl genrsa -out "$CERT_DIR"/admin.key 2048
 
 # Generate CSR for admin user. Note the OU.
-sudo -u "$(logname)" openssl req -new -key admin.key -subj "/CN=admin/O=system:masters" -out "$CERT_DIR"/admin.csr
+sudo -u "$(logname)" openssl req -new -key "$CERT_DIR"/admin.key -subj "/CN=admin/O=system:masters" -out "$CERT_DIR"/admin.csr
 
 # Sign certificate for admin user using CA servers private key
 sudo -u "$(logname)" openssl x509 -req -in "$CERT_DIR"/admin.csr -CA ca.crt -CAkey ca.key -CAcreateserial  -out "$CERT_DIR"/admin.crt -days 1000
@@ -36,21 +36,21 @@ sudo -u "$(logname)" openssl x509 -req -in "$CERT_DIR"/admin.csr -CA ca.crt -CAk
 # The Controller Manager Client Certificate
 #####################################################################################
 sudo -u "$(logname)" openssl genrsa -out "$CERT_DIR"/kube-controller-manager.key 2048
-sudo -u "$(logname)" openssl req -new -key kube-controller-manager.key -subj "/CN=system:kube-controller-manager" -out "$CERT_DIR"/kube-controller-manager.csr
+sudo -u "$(logname)" openssl req -new -key "$CERT_DIR"/kube-controller-manager.key -subj "/CN=system:kube-controller-manager" -out "$CERT_DIR"/kube-controller-manager.csr
 sudo -u "$(logname)" openssl x509 -req -in "$CERT_DIR"/kube-controller-manager.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out "$CERT_DIR"/kube-controller-manager.crt -days 1000
 
 #####################################################################################
 # The Kube Proxy Client Certificate
 #####################################################################################
 sudo -u "$(logname)" openssl genrsa -out "$CERT_DIR"/kube-proxy.key 2048
-sudo -u "$(logname)" openssl req -new -key kube-proxy.key -subj "/CN=system:kube-proxy" -out "$CERT_DIR"/kube-proxy.csr
+sudo -u "$(logname)" openssl req -new -key "$CERT_DIR"/kube-proxy.key -subj "/CN=system:kube-proxy" -out "$CERT_DIR"/kube-proxy.csr
 sudo -u "$(logname)" openssl x509 -req -in "$CERT_DIR"/kube-proxy.csr -CA ca.crt -CAkey ca.key -CAcreateserial  -out "$CERT_DIR"/kube-proxy.crt -days 1000
 
 #####################################################################################
 # The Scheduler Client Certificate
 #####################################################################################
 sudo -u "$(logname)" openssl genrsa -out "$CERT_DIR"/kube-scheduler.key 2048
-sudo -u "$(logname)" openssl req -new -key kube-scheduler.key -subj "/CN=system:kube-scheduler" -out "$CERT_DIR"/kube-scheduler.csr
+sudo -u "$(logname)" openssl req -new -key "$CERT_DIR"/kube-scheduler.key -subj "/CN=system:kube-scheduler" -out "$CERT_DIR"/kube-scheduler.csr
 sudo -u "$(logname)" openssl x509 -req -in "$CERT_DIR"/kube-scheduler.csr -CA ca.crt -CAkey ca.key -CAcreateserial  -out "$CERT_DIR"/kube-scheduler.crt -days 1000
 
 #####################################################################################
@@ -79,7 +79,7 @@ EOF
 
 # Generates certs for kube-apiserver
 sudo -u "$(logname)" openssl genrsa -out "$CERT_DIR"/kube-apiserver.key 2048
-sudo -u "$(logname)" openssl req -new -key kube-apiserver.key -subj "/CN=kube-apiserver" -out "$CERT_DIR"/kube-apiserver.csr -config openssl.cnf
+sudo -u "$(logname)" openssl req -new -key "$CERT_DIR"/kube-apiserver.key -subj "/CN=kube-apiserver" -out "$CERT_DIR"/kube-apiserver.csr -config openssl.cnf
 sudo -u "$(logname)" openssl x509 -req -in "$CERT_DIR"/kube-apiserver.csr -CA ca.crt -CAkey ca.key -CAcreateserial  -out "$CERT_DIR"/kube-apiserver.crt -extensions v3_req -extfile openssl.cnf -days 1000
 
 #####################################################################################
@@ -102,12 +102,12 @@ EOF
 
 # Generates certs for ETCD
 sudo -u "$(logname)" openssl genrsa -out "$CERT_DIR"/etcd-server.key 2048
-sudo -u "$(logname)" openssl req -new -key etcd-server.key -subj "/CN=etcd-server" -out "$CERT_DIR"/etcd-server.csr -config openssl-etcd.cnf
+sudo -u "$(logname)" openssl req -new -key "$CERT_DIR"/etcd-server.key -subj "/CN=etcd-server" -out "$CERT_DIR"/etcd-server.csr -config openssl-etcd.cnf
 sudo -u "$(logname)" openssl x509 -req -in "$CERT_DIR"/etcd-server.csr -CA ca.crt -CAkey ca.key -CAcreateserial  -out "$CERT_DIR"/etcd-server.crt -extensions v3_req -extfile openssl-etcd.cnf -days 1000
 
 #####################################################################################
 # The Service Account Key Pair
 #####################################################################################
 sudo -u "$(logname)" openssl genrsa -out "$CERT_DIR"/service-account.key 2048
-sudo -u "$(logname)" openssl req -new -key service-account.key -subj "/CN=service-accounts" -out "$CERT_DIR"/service-account.csr
+sudo -u "$(logname)" openssl req -new -key "$CERT_DIR"/service-account.key -subj "/CN=service-accounts" -out "$CERT_DIR"/service-account.csr
 sudo -u "$(logname)" openssl x509 -req -in "$CERT_DIR"/service-account.csr -CA ca.crt -CAkey ca.key -CAcreateserial  -out "$CERT_DIR"/service-account.crt -days 1000
