@@ -80,5 +80,5 @@ then
 
   setup-kubernetes-lab/clone-kubernetes-lab.sh "$HOME_DIRECTORY"
   setup-kubernetes-lab/setup-kubernetes-lab-environment.sh "$HOME_DIRECTORY"
-
+  ca-and-tls/distrubute-certificates.sh
 fi
