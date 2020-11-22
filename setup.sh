@@ -47,6 +47,14 @@ fi
 
 home_directory=$(getent passwd "$(logname)" | cut -d: -f6)
 
+if [ ! -d "ca-and-tls/certificates/" ]
+then
+  echo "Creating certificates."
+  ca-and-tls/create-certificates.sh
+else
+  echo "Certificates already created."
+fi
+
 if [ ! -d "$home_directory/registry-lab" ]
 then
   setup-registry-lab/clone-registry-lab.sh "$home_directory"
@@ -73,13 +81,4 @@ then
   setup-kubernetes-lab/clone-kubernetes-lab.sh "$home_directory"
   setup-kubernetes-lab/setup-kubernetes-lab-environment.sh "$home_directory"
 
-fi
-
-if [ ! -d "$home_directory/setup-kubernetes-lab/ca-and-tls/certificates/" ]
-then
-  echo "Creating certificates."
-  ls "$home_directory/setup-kubernetes-lab/ca-and-tls/"
-  setup-kubernetes-lab/ca-and-tls/create-certificates.sh
-else
-  echo "Certificates already created."
 fi
