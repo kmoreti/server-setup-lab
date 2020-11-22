@@ -1,6 +1,8 @@
 mkdir ca-and-tls/certificates
+mkdir ca-and-tls/config
 
 CERT_DIR=$(getent passwd "$(logname)" | cut -d: -f6)/server-setup-lab/ca-and-tls/certificates
+SSL_CONF_DIR=$(getent passwd "$(logname)" | cut -d: -f6)/server-setup-lab/ca-and-tls/config
 
 #####################################################################################
 # Certificate Authority
@@ -53,7 +55,7 @@ openssl x509 -req -in "$CERT_DIR"/kube-scheduler.csr -CA ca.crt -CAkey ca.key -C
 #####################################################################################
 # The Kubernetes API Server Certificate
 #####################################################################################
-cat > openssl.cnf <<EOF
+cat > "$SSL_CONF_DIR"/openssl.cnf <<EOF
 [req]
 req_extensions = v3_req
 distinguished_name = req_distinguished_name
@@ -82,7 +84,7 @@ openssl x509 -req -in "$CERT_DIR"/kube-apiserver.csr -CA ca.crt -CAkey ca.key -C
 #####################################################################################
 # The ETCD Server Certificate
 #####################################################################################
-cat > openssl-etcd.cnf <<EOF
+cat > "$SSL_CONF_DIR"/openssl-etcd.cnf <<EOF
 [req]
 req_extensions = v3_req
 distinguished_name = req_distinguished_name
