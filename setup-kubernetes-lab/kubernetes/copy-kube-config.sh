@@ -1,5 +1,5 @@
 LAB_KUBERNETES_DIR="$1"/kubernetes-lab/Vagrant/ubuntu/kubernetes
-sudo -u "$(logname)" cp setup-kubernetes-lab/kubernetes/config "$LAB_KUBERNETES_DIR"/
+sudo -u "$(logname)" cp -r setup-kubernetes-lab/kubernetes/config "$LAB_KUBERNETES_DIR"/
 
 LOADBALANCER_ADDRESS=192.168.5.30
 
