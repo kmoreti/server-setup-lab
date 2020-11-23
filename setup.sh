@@ -79,5 +79,9 @@ then
   fi
 
   setup-kubernetes-lab/clone-kubernetes-lab.sh "$HOME_DIRECTORY"
+  ca-and-tls/copy-certificates.sh "$HOME_DIRECTORY"
+  setup-kubernetes-lab/kubernetes/copy-kube-config.sh
+  setup-kubernetes-lab/kubernetes/generate-encryption-config.sh
   setup-kubernetes-lab/setup-kubernetes-lab-environment.sh "$HOME_DIRECTORY"
 fi
+
