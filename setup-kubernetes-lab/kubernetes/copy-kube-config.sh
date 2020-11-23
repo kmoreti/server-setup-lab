@@ -3,7 +3,7 @@ sudo -u "$(logname)" cp -r setup-kubernetes-lab/kubernetes/config "$LAB_KUBERNET
 
 LOADBALANCER_ADDRESS=192.168.5.30
 
-sudo -u "$(logname)" tee "$LAB_KUBERNETES_DIR"/config/kube-proxy.kubeconfig <<EOF
+cat <<EOF | sudo -u "$(logname)" tee "$LAB_KUBERNETES_DIR"/config/kube-proxy.kubeconfig > /dev/null
 {
   kubectl config set-cluster kubernetes-lab \\
     --certificate-authority=ca.crt \\
