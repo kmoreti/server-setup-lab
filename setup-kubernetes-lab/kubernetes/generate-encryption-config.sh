@@ -2,7 +2,7 @@ LAB_KUBERNETES_CONFIG_DIR="$1"/kubernetes-lab/Vagrant/ubuntu/kubernetes/config
 
 ENCRYPTION_KEY=$(head -c 32 /dev/urandom | base64)
 
-sudo -u "$(logname)" cat > "$LAB_KUBERNETES_CONFIG_DIR"/encryption-config.yaml <<EOF
+sudo -u "$(logname)" tee "$LAB_KUBERNETES_CONFIG_DIR"/encryption-config.yaml <<EOF
 kind: EncryptionConfig
 apiVersion: v1
 resources:
