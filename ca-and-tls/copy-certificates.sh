@@ -1,1 +1,1 @@
-sudo -u "$(logname)" cp ca-and-tls/certificates "$1"/kubernetes-lab/Vagrant/kubernetes/
+sudo -u "$(logname)" cp -r ca-and-tls/certificates "$1"/kubernetes-lab/Vagrant/kubernetes/
