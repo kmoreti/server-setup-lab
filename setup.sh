@@ -116,6 +116,6 @@ then
   echo "Encryption config has been created."
   echo "Setting up kubernetes-lab environment..."
   setup-kubernetes-lab/setup-kubernetes-lab-environment.sh "$HOME_DIRECTORY"
-  echo "kubernetes-lab environment has been setup."
+  echo "kubernetes-lab environment setup has finished."
 fi
 
