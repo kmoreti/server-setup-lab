@@ -1,6 +1,10 @@
 #!/bin/bash
 
 HOME_DIRECTORY=$(getent passwd "$(logname)" | cut -d: -f6)
+export KUBE_API_SERVER="/tmp/kube-apiserver"
+export KUBE_CONTROLLER_MANAGER="/tmp/kube-controller-manager"
+export KUBE_SCHEDULER="/tmp/kube-scheduler"
+export KUBE_CTL="/tmp/kubectl"
 
 apt-get update
 apt-get upgrade -y
@@ -15,6 +19,11 @@ then
   echo "Curl is installed successfully."
 else
   echo "Curl is already installed."
+fi
+
+if [[ ! -f "$KUBE_API_SERVER" || ! -f "$KUBE_CONTROLLER_MANAGER" || ! -f "$KUBE_SCHEDULER" || ! -f "$KUBE_CTL" ]]
+then
+  setup-kubernetes-lab/kubernetes/download-kubernetes-binaries.sh
 fi
 
 is_docker_installed=$(docker --version)
