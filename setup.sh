@@ -1,11 +1,11 @@
 #!/bin/bash
 
-HOME_DIRECTORY=$(getent passwd "$(logname)" | cut -d: -f6)
+export HOME_DIRECTORY=$(getent passwd "$(logname)" | cut -d: -f6)
 export KUBE_API_SERVER="/tmp/kube-apiserver"
 export KUBE_CONTROLLER_MANAGER="/tmp/kube-controller-manager"
 export KUBE_SCHEDULER="/tmp/kube-scheduler"
 export KUBE_CTL="/tmp/kubectl"
-export LAB_KUBERNETES_CONFIG_DIR="$1"/kubernetes-lab/Vagrant/ubuntu/kubernetes/config
+export LAB_KUBERNETES_CONFIG_DIR="$HOME_DIRECTORY"/kubernetes-lab/Vagrant/ubuntu/kubernetes/config
 export CERT_DIR="ca-and-tls/certificates"
 export SSL_CONF_DIR="ca-and-tls/config"
 
@@ -106,16 +106,28 @@ then
   fi
 
   echo "Cloning kubernetes-lab..."
-  setup-kubernetes-lab/clone-kubernetes-lab.sh "$HOME_DIRECTORY"
+  setup-kubernetes-lab/clone-kubernetes-lab.sh
   echo "kubernetes-lab has been cloned."
   echo "Copying certificates to kubernetes-lab..."
-  ca-and-tls/copy-certificates.sh "$HOME_DIRECTORY"
+  ca-and-tls/copy-certificates.sh
   echo "Certificates have been copied to kubernetes-lab."
+  echo "Creating admin config..."
+  setup-kubernetes-lab/kubernetes/create-admin-config.sh
+  echo "Admin config has been created."
+  echo "Creating controller manager config..."
+  setup-kubernetes-lab/kubernetes/create-controller-manager-config.sh
+  echo "Controller manager config has been created."
+  echo "Creating scheduler config..."
+  setup-kubernetes-lab/kubernetes/create-scheduler-config.sh
+  echo "Scheduler config has been created."
+  echo "Creating proxy config..."
+  setup-kubernetes-lab/kubernetes/create-proxy-config.sh
+  echo "Proxy config has been created."
   echo "Generating encryption config..."
-  setup-kubernetes-lab/kubernetes/generate-encryption-config.sh "$HOME_DIRECTORY"
+  setup-kubernetes-lab/kubernetes/generate-encryption-config.sh
   echo "Encryption config has been created."
   echo "Setting up kubernetes-lab environment..."
-  setup-kubernetes-lab/setup-kubernetes-lab-environment.sh "$HOME_DIRECTORY"
+  setup-kubernetes-lab/setup-kubernetes-lab-environment.sh
   echo "kubernetes-lab environment setup has finished."
 fi
 
