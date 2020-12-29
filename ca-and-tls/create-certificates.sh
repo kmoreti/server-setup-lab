@@ -108,3 +108,25 @@ sudo -u "$(logname)" openssl x509 -req -in "$CERT_DIR"/etcd-server.csr -CA "$CER
 sudo -u "$(logname)" openssl genrsa -out "$CERT_DIR"/service-account.key 2048
 sudo -u "$(logname)" openssl req -new -key "$CERT_DIR"/service-account.key -subj "/CN=service-accounts" -out "$CERT_DIR"/service-account.csr
 sudo -u "$(logname)" openssl x509 -req -in "$CERT_DIR"/service-account.csr -CA "$CERT_DIR"/ca.crt -CAkey "$CERT_DIR"/ca.key -CAcreateserial  -out "$CERT_DIR"/service-account.crt -days 1000
+
+#####################################################################################
+# The Worker-1 Key Pair
+#####################################################################################
+sudo -u "$(logname)" cat > "$SSL_CONF_DIR"/openssl-worker-1.cnf <<EOF
+[req]
+req_extensions = v3_req
+distinguished_name = req_distinguished_name
+[req_distinguished_name]
+[ v3_req ]
+basicConstraints = CA:FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+subjectAltName = @alt_names
+[alt_names]
+DNS.1 = worker-1
+IP.1 = 192.168.5.21
+EOF
+
+# Generates certs for worker-1
+sudo -u "$(logname)" openssl genrsa -out "$CERT_DIR"/worker-1.key 2048
+sudo -u "$(logname)" openssl req -new -key "$CERT_DIR"/worker-1.key -subj "/CN=system:node:worker-1/O=system:nodes" -out "$CERT_DIR"/worker-1.csr -config "$SSL_CONF_DIR"/openssl-worker-1.cnf
+sudo -u "$(logname)" openssl x509 -req -in "$CERT_DIR"/worker-1.csr -CA "$CERT_DIR"/ca.crt -CAkey "$CERT_DIR"/ca.key -CAcreateserial -out "$CERT_DIR"/worker-1.crt -extensions v3_req -extfile "$SSL_CONF_DIR"/openssl-worker-1.cnf -days 1000

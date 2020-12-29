@@ -5,9 +5,12 @@ export KUBE_API_SERVER="/tmp/kube-apiserver"
 export KUBE_CONTROLLER_MANAGER="/tmp/kube-controller-manager"
 export KUBE_SCHEDULER="/tmp/kube-scheduler"
 export KUBE_CTL="/tmp/kubectl"
+export KUBE_PROXY="/tmp/kube-proxy"
+export KUBELET="/tmp/kubelet"
 export LAB_KUBERNETES_CONFIG_DIR="$HOME_DIRECTORY"/kubernetes-lab/Vagrant/ubuntu/kubernetes/config
 export CERT_DIR="ca-and-tls/certificates"
 export SSL_CONF_DIR="ca-and-tls/config"
+export LOADBALANCER_ADDRESS=192.168.5.30
 
 apt-get update
 apt-get upgrade -y
@@ -123,6 +126,9 @@ then
   echo "Creating proxy config..."
   setup-kubernetes-lab/kubernetes/create-proxy-config.sh
   echo "Proxy config has been created."
+  echo "Creating worker-1 config..."
+  setup-kubernetes-lab/kubernetes/create-worker-1-config.sh
+  echo "Worker-1 config has been created."
   echo "Generating encryption config..."
   setup-kubernetes-lab/kubernetes/generate-encryption-config.sh
   echo "Encryption config has been created."
