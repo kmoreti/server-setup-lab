@@ -12,7 +12,7 @@ sudo -u "$(logname)" curl -# -fSL "https://storage.googleapis.com/kubernetes-rel
 echo "Downloading kube-proxy..."
 sudo -u "$(logname)" curl -# -fSL "https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kube-proxy" -o "$KUBE_PROXY"
 echo "Downloading kubelet..."
-sudo -u "$(logname)" curl -# -fSL "https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kube-proxy" -o "$KUBELET"
+sudo -u "$(logname)" curl -# -fSL "https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubelet" -o "$KUBELET"
 
 sudo -u "$(logname)" chmod +x "$KUBE_API_SERVER"
 sudo -u "$(logname)" chmod +x "$KUBE_CONTROLLER_MANAGER"
