@@ -1,6 +1,3 @@
-CERT_DIR="ca-and-tls/certificates"
-SSL_CONF_DIR="ca-and-tls/config"
-
 sudo -u "$(logname)" mkdir "$CERT_DIR"
 sudo -u "$(logname)" mkdir "$SSL_CONF_DIR"
 

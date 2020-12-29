@@ -5,6 +5,9 @@ export KUBE_API_SERVER="/tmp/kube-apiserver"
 export KUBE_CONTROLLER_MANAGER="/tmp/kube-controller-manager"
 export KUBE_SCHEDULER="/tmp/kube-scheduler"
 export KUBE_CTL="/tmp/kubectl"
+export LAB_KUBERNETES_CONFIG_DIR="$1"/kubernetes-lab/Vagrant/ubuntu/kubernetes/config
+export CERT_DIR="ca-and-tls/certificates"
+export SSL_CONF_DIR="ca-and-tls/config"
 
 apt-get update
 apt-get upgrade -y
