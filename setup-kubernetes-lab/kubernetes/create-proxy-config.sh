@@ -1,5 +1,3 @@
-LOADBALANCER_ADDRESS=192.168.5.30
-
 PROXY_CONFIG="$LAB_KUBERNETES_CONFIG_DIR"/kube-proxy.kubeconfig
 
 sudo -u "$(logname)" kubectl config set-cluster kubernetes-lab \
