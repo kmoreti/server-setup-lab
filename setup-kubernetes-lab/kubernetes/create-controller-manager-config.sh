@@ -16,3 +16,5 @@ kubectl config set-context default \
     --kubeconfig="$LAB_KUBERNETES_CONFIG_DIR"/kube-controller-manager.kubeconfig
 
 kubectl config use-context default --kubeconfig="$LAB_KUBERNETES_CONFIG_DIR"/kube-controller-manager.kubeconfig
+
+chown -R "$(id -u)":"$(id -g)" "$LAB_KUBERNETES_CONFIG_DIR"/kube-controller-manager.kubeconfig
