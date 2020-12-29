@@ -1,6 +1,6 @@
 CONTROLLER_MANAGER_CONFIG="$LAB_KUBERNETES_CONFIG_DIR"/kube-controller-manager.kubeconfig
 sudo -u "$(logname)" kubectl config set-cluster kubernetes-lab \
-    --certificate-authority=$HOME/ca.crt \
+    --certificate-authority="$CERT_DIR"/ca.crt \
     --embed-certs=true \
     --server=https://127.0.0.1:6443 \
     --kubeconfig="$CONTROLLER_MANAGER_CONFIG"
