@@ -28,7 +28,7 @@ else
   echo "Curl is already installed."
 fi
 
-if [[ ! -f "$KUBE_API_SERVER" || ! -f "$KUBE_CONTROLLER_MANAGER" || ! -f "$KUBE_SCHEDULER" || ! -f "$KUBE_CTL" ]]
+if [[ ! -f "$KUBE_API_SERVER" || ! -f "$KUBE_CONTROLLER_MANAGER" || ! -f "$KUBE_SCHEDULER" || ! -f "$KUBE_CTL" || ! -f "$KUBE_PROXY" || ! -f "$KUBELET" ]]
 then
   echo "Downloading kubernetes binaries..."
   setup-kubernetes-lab/kubernetes/download-kubernetes-binaries.sh
