@@ -17,6 +17,4 @@ kubectl config set-context default \
     --user=system:kube-proxy \
     --kubeconfig="$LAB_KUBERNETES_CONFIG_DIR"/kube-proxy.kubeconfig
 
-kubectl config use-context default --kubeconfig="$LAB_KUBERNETES_CONFIG_DIR"/kube-proxy.kubeconfig
-
-chown -R "$(id -u)":"$(id -g)" "$LAB_KUBERNETES_CONFIG_DIR"/kube-proxy.kubeconfig
+sudo -u "$(logname)" kubectl config use-context default --kubeconfig="$LAB_KUBERNETES_CONFIG_DIR"/kube-proxy.kubeconfig

@@ -15,6 +15,4 @@ kubectl config set-context default \
     --user=admin \
     --kubeconfig="$LAB_KUBERNETES_CONFIG_DIR"/admin.kubeconfig
 
-kubectl config use-context default --kubeconfig="$LAB_KUBERNETES_CONFIG_DIR"/admin.kubeconfig
-
-chown -R "$(id -u)":"$(id -g)" "$LAB_KUBERNETES_CONFIG_DIR"/admin.kubeconfig
+sudo -u "$(logname)" kubectl config use-context default --kubeconfig="$LAB_KUBERNETES_CONFIG_DIR"/admin.kubeconfig

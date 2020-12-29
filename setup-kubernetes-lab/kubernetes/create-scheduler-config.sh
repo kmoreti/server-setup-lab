@@ -15,6 +15,4 @@ kubectl config set-context default \
     --user=system:kube-scheduler \
     --kubeconfig="$LAB_KUBERNETES_CONFIG_DIR"/kube-scheduler.kubeconfig
 
-kubectl config use-context default --kubeconfig="$LAB_KUBERNETES_CONFIG_DIR"/kube-scheduler.kubeconfig
-
-chown -R "$(id -u)":"$(id -g)" "$LAB_KUBERNETES_CONFIG_DIR"/kube-scheduler.kubeconfig
+sudo -u "$(logname)" kubectl config use-context default --kubeconfig="$LAB_KUBERNETES_CONFIG_DIR"/kube-scheduler.kubeconfig
