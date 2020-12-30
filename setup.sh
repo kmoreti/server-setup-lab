@@ -132,6 +132,9 @@ then
   echo "Generating encryption config..."
   setup-kubernetes-lab/kubernetes/generate-encryption-config.sh
   echo "Encryption config has been created."
+  echo "Configuring client kubectl..."
+  setup-kubernetes-lab/kubernetes/configure-client-kubectl.sh
+  echo "Client kubectl has been configured."
   echo "Setting up kubernetes-lab environment..."
   setup-kubernetes-lab/setup-kubernetes-lab-environment.sh
   echo "kubernetes-lab environment setup has finished."
