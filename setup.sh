@@ -7,6 +7,8 @@ export KUBE_SCHEDULER="/tmp/kube-scheduler"
 export KUBE_CTL="/tmp/kubectl"
 export KUBE_PROXY="/tmp/kube-proxy"
 export KUBELET="/tmp/kubelet"
+export ETCD="/tmp/etcd.tar.gz"
+export CNI_PLUGINS="/tmp/cni-plugins.tgz"
 export LAB_KUBERNETES_CONFIG_DIR="$HOME_DIRECTORY"/kubernetes-lab/Vagrant/ubuntu/kubernetes/config
 export CERT_DIR="ca-and-tls/certificates"
 export SSL_CONF_DIR="ca-and-tls/config"
@@ -32,7 +34,21 @@ if [[ ! -f "$KUBE_API_SERVER" || ! -f "$KUBE_CONTROLLER_MANAGER" || ! -f "$KUBE_
 then
   echo "Downloading kubernetes binaries..."
   setup-kubernetes-lab/kubernetes/download-kubernetes-binaries.sh
-  echo "Download of kubernetes binaries has finished..."
+  echo "The download of kubernetes binaries has finished."
+fi
+
+if [[ ! -f "$ETCD" ]]
+then
+  echo "Downloading etcd..."
+  setup-kubernetes-lab/kubernetes/etcd/download-etcd.sh
+  echo "The download of etcd has finished."
+fi
+
+if [[ ! -f "$CNI_PLUGINS" ]]
+then
+  echo "Downloading cni plugins..."
+  setup-kubernetes-lab/kubernetes/plugins/download-cni-plugins.sh
+  echo "The download of cni plugins has finished."
 fi
 
 is_docker_installed=$(docker --version)
