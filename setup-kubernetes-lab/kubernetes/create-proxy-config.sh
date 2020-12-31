@@ -3,7 +3,7 @@ PROXY_CONFIG="$LAB_KUBERNETES_CONFIG_DIR"/kube-proxy.kubeconfig
 sudo -u "$(logname)" kubectl config set-cluster kubernetes-lab \
     --certificate-authority="$CERT_DIR"/ca.crt \
     --embed-certs=true \
-    --server=https://${LOADBALANCER_ADDRESS}:6443 \
+    --server=https://"${LOADBALANCER_ADDRESS}":6443 \
     --kubeconfig="$PROXY_CONFIG"
 
 sudo -u "$(logname)" kubectl config set-credentials system:kube-proxy \
