@@ -157,6 +157,8 @@ then
   echo "kubernetes-lab environment setup has finished."
 fi
 
+setup-kubernetes-lab/configure-hosts.sh
+
 cd "$PROJECT"
 
 ssh vagrant@master-1
