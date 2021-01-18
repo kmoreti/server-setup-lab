@@ -161,8 +161,8 @@ setup-kubernetes-lab/configure-hosts.sh
 
 cd "$PROJECT"
 
-ssh -o "StrictHostKeyChecking no" vagrant@master-1
-export INSTALLATION="/home/$USER/installation"
+sudo -u "$(logname)" ssh -o "StrictHostKeyChecking no" vagrant@master-1
+export INSTALLATION="/home/$(logname)/installation"
 export SCRIPTS="$INSTALLATION/scripts"
 export CONFIG="$INSTALLATION/config"
 export CERTS="$INSTALLATION/certs"
