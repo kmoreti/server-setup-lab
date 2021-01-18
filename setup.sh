@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export HOME_DIRECTORY=$(getent passwd "$(logname)" | cut -d: -f6)
+export PROJECT="HOME_DIRECTORY/server-setup-lab"
 export KUBE_API_SERVER="/tmp/kube-apiserver"
 export KUBE_CONTROLLER_MANAGER="/tmp/kube-controller-manager"
 export KUBE_SCHEDULER="/tmp/kube-scheduler"
@@ -155,4 +156,14 @@ then
   setup-kubernetes-lab/setup-kubernetes-lab-environment.sh
   echo "kubernetes-lab environment setup has finished."
 fi
+
+cd "$PROJECT"
+
+ssh vagrant@master-1
+export INSTALLATION="/home/$USER/installation"
+export SCRIPTS="$INSTALLATION/scripts"
+export CONFIG="$INSTALLATION/config"
+export CERTS="$INSTALLATION/certs"
+export BINARIES="$INSTALLATION/binaries"
+chmod +x "$SCRIPTS/*.sh"
 
