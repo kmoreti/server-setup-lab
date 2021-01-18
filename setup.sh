@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export HOME_DIRECTORY=$(getent passwd "$(logname)" | cut -d: -f6)
-export PROJECT="HOME_DIRECTORY/server-setup-lab"
+export PROJECT="$HOME_DIRECTORY/server-setup-lab"
 export KUBE_API_SERVER="/tmp/kube-apiserver"
 export KUBE_CONTROLLER_MANAGER="/tmp/kube-controller-manager"
 export KUBE_SCHEDULER="/tmp/kube-scheduler"
@@ -161,7 +161,7 @@ setup-kubernetes-lab/configure-hosts.sh
 
 cd "$PROJECT"
 
-ssh vagrant@master-1
+ssh -o "StrictHostKeyChecking no" vagrant@master-1
 export INSTALLATION="/home/$USER/installation"
 export SCRIPTS="$INSTALLATION/scripts"
 export CONFIG="$INSTALLATION/config"
