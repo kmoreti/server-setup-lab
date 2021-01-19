@@ -170,3 +170,13 @@ sudo -u "$(logname)" ssh -o "StrictHostKeyChecking no" vagrant@master-2 << EOF
 chmod +x "/home/vagrant/installation/scripts/install-master.sh"
 /home/vagrant/installation/scripts/install-master.sh
 EOF
+
+sudo -u "$(logname)" ssh -o "StrictHostKeyChecking no" vagrant@worker-1 << EOF
+chmod +x "/home/vagrant/installation/scripts/install-worker.sh"
+/home/vagrant/installation/scripts/install-worker.sh
+EOF
+
+sudo -u "$(logname)" ssh -o "StrictHostKeyChecking no" vagrant@worker-2 << EOF
+chmod +x "/home/vagrant/installation/scripts/install-worker.sh"
+/home/vagrant/installation/scripts/install-worker.sh
+EOF
