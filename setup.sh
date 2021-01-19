@@ -164,6 +164,7 @@ cd "$PROJECT"
 sudo -u "$(logname)" ssh -o "StrictHostKeyChecking no" vagrant@master-1 << EOF
 chmod +x "/home/vagrant/installation/scripts/install-master.sh"
 /home/vagrant/installation/scripts/install-master.sh
+/home/vagrant/installation/scripts/enable-master-tls-bootstrapping.sh
 EOF
 
 sudo -u "$(logname)" ssh -o "StrictHostKeyChecking no" vagrant@master-2 << EOF
