@@ -164,12 +164,22 @@ cd "$PROJECT"
 sudo -u "$(logname)" ssh -o "StrictHostKeyChecking no" vagrant@master-1 << EOF
 chmod +x "/home/vagrant/installation/scripts/install-master.sh"
 /home/vagrant/installation/scripts/install-master.sh
-/home/vagrant/installation/scripts/enable-master-tls-bootstrapping.sh
 EOF
 
 sudo -u "$(logname)" ssh -o "StrictHostKeyChecking no" vagrant@master-2 << EOF
 chmod +x "/home/vagrant/installation/scripts/install-master.sh"
 /home/vagrant/installation/scripts/install-master.sh
+EOF
+
+sudo -u "$(logname)" ssh -o "StrictHostKeyChecking no" vagrant@master-1 << EOF
+/home/vagrant/installation/scripts/configure-master-rbac-for-kubelet-authorization.sh
+/home/vagrant/installation/scripts/apply-dns-add-on.sh
+EOF
+
+sudo -u "$(logname)" ssh -o "StrictHostKeyChecking no" vagrant@master-2 << EOF
+/home/vagrant/installation/scripts/configure-master-rbac-for-kubelet-authorization.sh
+/home/vagrant/installation/scripts/apply-dns-add-on.sh
+/home/vagrant/installation/scripts/enable-master-tls-bootstrapping.sh
 EOF
 
 sudo -u "$(logname)" ssh -o "StrictHostKeyChecking no" vagrant@worker-1 << EOF
