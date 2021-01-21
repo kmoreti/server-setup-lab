@@ -130,3 +130,17 @@ EOF
 sudo -u "$(logname)" openssl genrsa -out "$CERT_DIR"/worker-1.key 2048
 sudo -u "$(logname)" openssl req -new -key "$CERT_DIR"/worker-1.key -subj "/CN=system:node:worker-1/O=system:nodes" -out "$CERT_DIR"/worker-1.csr -config "$SSL_CONF_DIR"/openssl-worker-1.cnf
 sudo -u "$(logname)" openssl x509 -req -in "$CERT_DIR"/worker-1.csr -CA "$CERT_DIR"/ca.crt -CAkey "$CERT_DIR"/ca.key -CAcreateserial -out "$CERT_DIR"/worker-1.crt -extensions v3_req -extfile "$SSL_CONF_DIR"/openssl-worker-1.cnf -days 1000
+
+
+
+
+# Create front-proxy CSR using the private key
+sudo -u "$(logname)" openssl req -new -key "$CERT_DIR"/front-proxy-ca.key -subj "/CN=front-proxy-ca" -out "$CERT_DIR"/front-proxy-ca.csr
+# Self sign the front-proxy csr using its own private key
+sudo -u "$(logname)" openssl x509 -req -in "$CERT_DIR"/front-proxy-ca.csr -signkey "$CERT_DIR"/ca.key -CAcreateserial -out "$CERT_DIR"/front-proxy-ca.crt -days 1000
+# Generate private key for front-proxy client
+sudo -u "$(logname)" openssl genrsa -out "$CERT_DIR"/front-proxy-client.key 2048
+# Generate CSR for front-proxy client. Note the OU.
+sudo -u "$(logname)" openssl req -new -key "$CERT_DIR"/front-proxy-client.key -subj "/CN=front-proxy-client/O=front-proxy-client" -out "$CERT_DIR"/front-proxy-client.csr
+# Sign certificate for front-proxy client using CA servers private key
+sudo -u "$(logname)" openssl x509 -req -in "$CERT_DIR"/front-proxy-client.csr -CA "$CERT_DIR"/front-proxy-ca.crt -CAkey "$CERT_DIR"/front-proxy-ca.key -CAcreateserial  -out "$CERT_DIR"/front-proxy-client.crt -days 1000
