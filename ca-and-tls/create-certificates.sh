@@ -141,7 +141,7 @@ sudo -u "$(logname)" openssl genrsa -out "$CERT_DIR"/front-proxy-ca.key 2048
 # Create front-proxy CSR using the private key
 sudo -u "$(logname)" openssl req -new -key "$CERT_DIR"/front-proxy-ca.key -subj "/CN=front-proxy-ca" -out "$CERT_DIR"/front-proxy-ca.csr
 # Self sign the front-proxy csr using its own private key
-sudo -u "$(logname)" openssl x509 -req -in "$CERT_DIR"/front-proxy-ca.csr -signkey "$CERT_DIR"/ca.key -CAcreateserial -out "$CERT_DIR"/front-proxy-ca.crt -days 1000
+sudo -u "$(logname)" openssl x509 -req -in "$CERT_DIR"/front-proxy-ca.csr -signkey "$CERT_DIR"/front-proxy-ca.key -CAcreateserial -out "$CERT_DIR"/front-proxy-ca.crt -days 1000
 
 # Generate private key for front-proxy client
 sudo -u "$(logname)" openssl genrsa -out "$CERT_DIR"/front-proxy-client.key 2048
